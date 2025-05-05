@@ -1,15 +1,49 @@
-// fetch("https://jsonplaceholder.typicode.com/users"))
-const emailRef = document.querySelector(".email");
+// // how to create a promise
+// const statusRef = document.querySelector(".status")
+// function getSubscriptionStatus() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//           resolve("VIP")
+//         } , 2000)
+//     })
+// }
+// //1. Then
+// getSubscriptionStatus().then(response => console.log(response))
 
-// // 1. Then
-// fetch("https://jsonplaceholder.typicode.com/users/1") //fetching data from the API(backend)
-//   .then((response) => {                              //unlocks the promise
-//     return response.json();                         //converts the response to JSON
-//   })
-//   .then((data) => {                                 //.then unlocks the promise response.json()
-//     console.log(data);                              //logs the data to the console
-//     emailRef.innerHTML = data.email;               //displays the email in the HTML
-// });
 
-// 2. Async/Await
-await fetch("https://jsonplaceholder.typicode.com/users/1")
+// //2. Async/await
+// async function main() {
+//     const status = await getSubscriptionStatus()
+//     statusRef.innerHTML = status
+    
+// }
+// main()
+
+const statusRef = document.querySelector(".status")
+const videoRef = document.querySelector(".video")
+
+function getVideo(subscriptionStatus) {
+    return new Promise((resolve, reject) => {
+            if (subscriptionStatus === "VIP") {
+                resolve("show video")
+            } 
+            else if (subscriptionStatus === "FREE") {
+                resolve("show trailer")
+            }
+            else {
+                reject("no video")
+            }
+    })
+}
+async function main() {
+    const status = await getVideo("FREE")
+    statusRef.innerHTML = status
+    try {
+        console.log(await getVideo(status))
+    }
+    catch (e) {
+    console.log(e)
+    videoRef.innerHTML = e
+}}
+
+main()
